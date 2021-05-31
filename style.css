@@ -1,9 +1,50 @@
-.vareta{
-    display: flex; 
-    flex-direction: column-reverse; 
-    align-items: center;
+h1,
+p {
+    text-align: center;
 }
 
-.container{
-    
+.vareta {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    border: 2px solid red;
+    width: 33%;
+}
+
+.container {
+    display: flex;
+    border: 2px solid black;
+    height: 500px;
+    justify-content: space-between;
+}
+
+.start {}
+
+.offset {}
+
+.end {}
+
+.disco {
+    height: 100px;
+    border-radius: 15px;
+}
+
+.vermelho {
+    width: 100%;
+    background-color: red;
+}
+
+.verde {
+    width: 75%;
+    background-color: green;
+}
+
+.roxo {
+    width: 50%;
+    background-color: purple;
+}
+
+.azul {
+    width: 25%;
+    background-color: blue;
 }
