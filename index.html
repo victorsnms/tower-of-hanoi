@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,21 +10,30 @@
     <title>Torre de Hanoi</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <div class="start">
-            <div class="discovermelho"></div>
-            <div class="discoverde"></div>
-            <div class="discoroxo"></div>
-            <div class="discoazul"></div>        
-        </div>
-        <div class="offset">
-        
-        </div>
-        <div class="end">
 
+<body>
+    <header>
+        <h1>Torre de Hanoi</h1>
+    </header>
+
+    <main>
+        <div class="container" id="container">
+            <div class="vareta start" id="vareta__start">
+                <div class="disco vermelho" id="disco__vermelho"></div>
+                <div class="disco verde" id="disco__verde"></div>
+                <div class="disco roxo" id="disco__roxo"></div>
+                <div class="disco azul" id="disco__azul"></div>
+            </div>
+            <div class="vareta offset" id="vareta__offset">
+
+            </div>
+            <div class="vareta end" id="vareta__end">
+
+            </div>
         </div>
-    </div>
+        <p class="alerta-mensagem" id="mensagem">&nbsp;a</p>
+    </main>
 </body>
 <script src="script.js"></script>
+
 </html>
