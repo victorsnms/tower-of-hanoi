@@ -25,10 +25,10 @@ const discoVermelho = document.getElementById('disco__vermelho')
 const discoVerde = document.getElementById('disco__verde')
 const discoRoxo = document.getElementById('disco__roxo')
 const discoAzul = document.getElementById('disco__azul')
-discoAzul.style.width = '25%'
-discoRoxo.style.width = '50%'
-discoVerde.style.width = '75%'
-discoVermelho.style.width = '100%'
+discoAzul.style.width = '100px'
+discoRoxo.style.width = '200px'
+discoVerde.style.width = '300px'
+discoVermelho.style.width = '400px'
 const alertaMensagem = document.getElementById('mensagem')
 varetaStart.appendChild(discoVermelho)
 varetaStart.appendChild(discoVerde)
@@ -40,136 +40,192 @@ varetaStart.appendChild(discoAzul)
     // declarando variaveis
 let posicaoEscolhida
 let posicaoColocada
-let modo = 2
+let modo = 1
+let count = 0
 
-//EventListeners
-if (modo = 1) {
-    //removendo eventlisteners
-
-    varetaStart.removeEventListener('click', aplicaJogada)
-    varetaOffset.removeEventListener('click', aplicaJogada)
-    varetaEnd.removeEventListener('click', aplicaJogada)
-
-    varetaStart.addEventListener('click', function pegarPosicaoEscolhida(event) {
-        posicaoEscolhida = event.currentTarget
-        console.log(posicaoEscolhida)
-        modo = 2
-
-        function mudarmodo() {
-            if (modo = 1) {
-                modo1()
-            }
+//Checar modos
+function verificarModo(){
+    if (modo === 1){
+        if(count > 0){
+            limparListenersModo2()
         }
-    })
-    varetaOffset.addEventListener('click', function pegarPosicaoEscolhida(event) {
-        posicaoEscolhida = event.currentTarget
-        console.log(posicaoEscolhida)
-        modo = 2
-
-    })
-    varetaEnd.addEventListener('click', function pegarPosicaoEscolhida(event) {
-        posicaoEscolhida = event.currentTarget
-        console.log(posicaoEscolhida)
-        modo = 2
-
-    })
+        modo1()
+        console.log('Modo:', modo)
+        count++
+    }
+    if (modo === 2){
+        limparListenersModo1()
+        modo2()
+        console.log('Modo:', modo)
+    }
 }
 
-posicaoEscolhida = varetaStart
-if (modo = 2) {
-    //removendo eventlisteners
-    varetaStart.removeEventListener('click', pegarPosicaoEscolhida)
-    varetaOffset.removeEventListener('click', pegarPosicaoEscolhida)
-    varetaEnd.removeEventListener('click', pegarPosicaoEscolhida)
 
-    varetaStart.addEventListener('click', function aplicaJogada(event) {
+verificarModo()
 
-        posicaoColocada = event.currentTarget
-        console.log(posicaoColocada)
+function pegarPosicaoEscolhidaStart(event) {
+    posicaoEscolhida = event.currentTarget
+    console.log(posicaoEscolhida)
+    modo = 2
+    verificarModo()
 
-        if (posicaoColocada.childElementCount === 0) {
+}
+
+function pegarPosicaoEscolhidaOffset(event) {
+    posicaoEscolhida = event.currentTarget
+    console.log(posicaoEscolhida)
+    modo = 2
+    verificarModo()
+
+}
+
+function pegarPosicaoEscolhidaEnd(event) {
+    posicaoEscolhida = event.currentTarget
+    console.log(posicaoEscolhida)
+    modo = 2
+    verificarModo()
+
+}
+
+function modo1(){
+
+    varetaStart.addEventListener('click', pegarPosicaoEscolhidaStart)
+    varetaOffset.addEventListener('click', pegarPosicaoEscolhidaOffset)
+    varetaEnd.addEventListener('click', pegarPosicaoEscolhidaEnd)
+}
+
+function aplicaJogadaStart(event) {
+
+    posicaoColocada = event.currentTarget
+    console.log(posicaoColocada)
+
+    if (posicaoColocada.childElementCount === 0) {
+
+        discoSelecionado = posicaoEscolhida.lastElementChild
+        posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
+        varetaStart.appendChild(discoSelecionado)
+        console.log(posicaoColocada.lastElementChild.style)
+        modo = 1
+        verificarModo()
+    } else {
+
+        if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
+            console.log(alertaMensagem)
+            alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
+                modo = 1
+                verificarModo()
+        } else {
 
             discoSelecionado = posicaoEscolhida.lastElementChild
             posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
             varetaStart.appendChild(discoSelecionado)
             console.log(posicaoColocada.lastElementChild.style)
-        } else {
-
-            if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
-                console.log(alertaMensagem)
-                alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
-                    //mudar o modo
-            } else {
-
-                discoSelecionado = posicaoEscolhida.lastElementChild
-                posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
-                varetaStart.appendChild(discoSelecionado)
-                console.log(posicaoColocada.lastElementChild.style)
-
-            }
-
+            modo = 1
+            verificarModo()
         }
 
-    })
+    }
 
-    varetaOffset.addEventListener('click', function aplicaJogada(event) {
-        posicaoColocada = event.currentTarget
-        console.log(posicaoColocada)
+}
 
-        if (posicaoColocada.childElementCount === 0) {
+function aplicaJogadaOffset(event) {
+    posicaoColocada = event.currentTarget
+    console.log(posicaoColocada)
+
+    if (posicaoColocada.childElementCount === 0) {
+        discoSelecionado = posicaoEscolhida.lastElementChild
+        posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
+        varetaOffset.appendChild(discoSelecionado)
+        console.log(posicaoColocada.lastElementChild.style)
+        modo = 1
+        verificarModo()
+
+    } else {
+
+        if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
+            console.log(alertaMensagem)
+            alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
+                //mudar o modo
+                modo = 1
+                verificarModo()
+
+        } else {
+
             discoSelecionado = posicaoEscolhida.lastElementChild
             posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
             varetaOffset.appendChild(discoSelecionado)
             console.log(posicaoColocada.lastElementChild.style)
-
-        } else {
-
-            if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
-                console.log(alertaMensagem)
-                alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
-                    //mudar o modo
-
-            } else {
-
-                discoSelecionado = posicaoEscolhida.lastElementChild
-                posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
-                varetaOffset.appendChild(discoSelecionado)
-                console.log(posicaoColocada.lastElementChild.style)
-
-            }
+            modo = 1
+            verificarModo()
 
         }
 
-    })
-    varetaEnd.addEventListener('click', function aplicaJogada(event) {
-            posicaoColocada = event.currentTarget
-            console.log(posicaoColocada)
+    }
 
-            if (posicaoColocada.childElementCount === 0) {
-                discoSelecionado = posicaoEscolhida.lastElementChild
-                posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
-                varetaEnd.appendChild(discoSelecionado)
-                console.log(posicaoColocada.lastElementChild.style)
+}
 
-            } else {
+function aplicaJogadaEnd(event) {
+    posicaoColocada = event.currentTarget
+    console.log(posicaoColocada)
 
-                if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
-                    console.log(alertaMensagem)
-                    alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
-                        //mudar o modo
+    if (posicaoColocada.childElementCount === 0) {
+        discoSelecionado = posicaoEscolhida.lastElementChild
+        posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
+        varetaEnd.appendChild(discoSelecionado)
+        console.log(posicaoColocada.lastElementChild.style)
+        modo = 1
+        verificarModo()
 
-                } else {
+    } else {
 
-                    discoSelecionado = posicaoEscolhida.lastElementChild
-                    posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
-                    varetaEnd.appendChild(discoSelecionado)
-                    console.log(posicaoColocada.lastElementChild.style)
+        if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
+            console.log(alertaMensagem)
+            alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
+                //mudar o modo
+                modo = 1
+                verificarModo()
 
-                }
+        } else {
 
-            }
+            discoSelecionado = posicaoEscolhida.lastElementChild
+            posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
+            varetaEnd.appendChild(discoSelecionado)
+            console.log(posicaoColocada.lastElementChild.style)
+            modo = 1
+            verificarModo()
 
-        })
+        }
+
+    }
+
+}
+
+
+
+function modo2(){
+    varetaStart.addEventListener('click', aplicaJogadaStart)
+
+    varetaOffset.addEventListener('click', aplicaJogadaOffset)
+
+    varetaEnd.addEventListener('click', aplicaJogadaEnd)
+}
+
+function limparListenersModo2(){
+    //limpar listeners do modo 2
+    varetaStart.removeEventListener('click', aplicaJogadaStart)
+    varetaOffset.removeEventListener('click', aplicaJogadaOffset)
+    varetaEnd.removeEventListener('click', aplicaJogadaEnd)
+
+}
+
+function limparListenersModo1(){
+    //limpar listeners do modo 1
+    varetaStart.removeEventListener('click', pegarPosicaoEscolhidaStart)
+    varetaOffset.removeEventListener('click', pegarPosicaoEscolhidaOffset)
+    varetaEnd.removeEventListener('click', pegarPosicaoEscolhidaEnd)
+}
+
+    
         /* 
             varetaEnd.addEventListener('click', (event) => {
                 posicaoColocada = event.currentTarget
@@ -180,7 +236,6 @@ if (modo = 2) {
                     varetaEnd.appendChild(discoSelecionado)
                 }
             }) */
-}
 
 //modo 1 - O click vai declarar a posicao escolhida
 //modo 2 - O click vai executar a function Clicar
