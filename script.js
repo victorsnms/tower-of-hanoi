@@ -1,49 +1,3 @@
-//Abstração
-
-/*
-construir 3 varetas com display flex column-reverse
-(os filhos appendados vão ser mostrados na parte superior)
-
-
-STYLO
-definir titulo
-definir alturas e larguras dos discos
-defenir alturas e larguras das quadrantes
-
-LÓGICA
-
-HANDLER DE CLICK EM CASA QUADRANTE
-( Use event.currentTarget dentro do handler de evento para determinar qual torre foi clicada.)
-    
-*/
-//Declarando objetos
-/* const container = document.getElementById('container')
-const rodape = document.getElementById('rodape')
-const varetaStart = document.getElementById('vareta__start')
-const varetaOffset = document.getElementById('vareta__offset')
-const varetaEnd = document.getElementById('vareta__end')
-const discoVermelho = document.getElementById('disco__vermelho')
-const discoVerde = document.getElementById('disco__verde')
-const discoRoxo = document.getElementById('disco__roxo')
-const discoAzul = document.getElementById('disco__azul')
-discoAzul.style.width = '30%'
-discoRoxo.style.width = '50%'
-discoVerde.style.width = '70%'
-discoVermelho.style.width = '90%'
-const alertaMensagem = document.getElementById('mensagem')
-varetaStart.appendChild(discoVermelho)
-varetaStart.appendChild(discoVerde)
-varetaStart.appendChild(discoRoxo)
-varetaStart.appendChild(discoAzul) */
-
-
-
-// declarando variaveis
-let posicaoEscolhida
-let posicaoColocada
-let modo = 1
-let count = 0
-
 //Checar modos
 
 const container = document.getElementById('container')
@@ -81,9 +35,11 @@ varetaStart.appendChild(discoVerde)
 varetaStart.appendChild(discoRoxo)
 varetaStart.appendChild(discoAzul)
 
-
-
-
+// declarando variaveis
+let posicaoEscolhida
+let posicaoColocada
+let modo = 1
+let count = 0
 
 function verificarModo() {
     if (modo === 1) {
@@ -96,6 +52,7 @@ function verificarModo() {
         modo1()
         console.log('Modo:', modo)
         count++
+        posicaoEscolhida.lastElementChild.classList.toggle('subindo')
     }
     if (modo === 2) {
         posicaoEscolhida.classList.toggle('selected')
@@ -103,6 +60,7 @@ function verificarModo() {
         alertaMensagem.innerText = ''
         limparListenersModo1()
         modo2()
+        posicaoColocada.lastElementChild.classList.toggle('subindo')
         console.log('Modo:', modo)
     }
 }
@@ -112,7 +70,6 @@ verificarModo()
 function pegarPosicaoEscolhidaStart(event) {
     posicaoEscolhida = event.currentTarget
     console.log(posicaoEscolhida)
-    posicaoEscolhida.class
     modo = 2
 
     verificarModo()
