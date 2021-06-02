@@ -65,6 +65,8 @@ discoRoxo.classList.add('roxo')
 const discoAzul = document.createElement('div')
 const mensagem = document.createElement('p')
 mensagem.classList.add('alerta-mensagem')
+const button = document.createElement('button')
+button.classList.add('btnstyle')
 discoAzul.classList.add('disco')
 discoAzul.classList.add('azul')
 discoAzul.style.width = '30%'
@@ -90,7 +92,6 @@ function verificarModo() {
         if (count > 0) {
             verificarVitoria()
             posicaoEscolhida.classList.toggle('selected')
-            posicaoColocada.lastElementChild.classList.remove('discBorder')
             limparListenersModo2()
         }
         modo1()
@@ -99,6 +100,7 @@ function verificarModo() {
     }
     if (modo === 2) {
         posicaoEscolhida.classList.toggle('selected')
+        /*adiciona borda no disco*/
         posicaoEscolhida.lastElementChild.classList.add('discBorder')
         alertaMensagem.innerText = ''
         limparListenersModo1()
@@ -114,7 +116,9 @@ function pegarPosicaoEscolhidaStart(event) {
     console.log(posicaoEscolhida)
     posicaoEscolhida.class
     modo = 2
-
+    /*animação adicionada*/
+    posicaoEscolhida.lastElementChild.classList.remove('aparecendo')
+    posicaoEscolhida.lastElementChild.classList.add('subindo')
     verificarModo()
 
 }
@@ -123,6 +127,9 @@ function pegarPosicaoEscolhidaOffset(event) {
     posicaoEscolhida = event.currentTarget
     console.log(posicaoEscolhida)
     modo = 2
+    /*animação adicionada*/
+    posicaoEscolhida.lastElementChild.classList.remove('aparecendo')
+    posicaoEscolhida.lastElementChild.classList.add('subindo')
     verificarModo()
 
 }
@@ -131,6 +138,9 @@ function pegarPosicaoEscolhidaEnd(event) {
     posicaoEscolhida = event.currentTarget
     console.log(posicaoEscolhida)
     modo = 2
+    /*animação adicionada*/
+    posicaoEscolhida.lastElementChild.classList.remove('aparecendo')
+    posicaoEscolhida.lastElementChild.classList.add('subindo')
     verificarModo()
 
 }
@@ -146,6 +156,9 @@ function aplicaJogadaStart(event) {
 
     posicaoColocada = event.currentTarget
     console.log(posicaoColocada)
+    /*animação parada*/
+    posicaoEscolhida.lastElementChild.classList.remove('subindo')
+    posicaoEscolhida.lastElementChild.classList.add('aparecendo')
 
     if (posicaoColocada.childElementCount === 0) {
 
@@ -154,13 +167,21 @@ function aplicaJogadaStart(event) {
         varetaStart.appendChild(discoSelecionado)
         console.log(posicaoColocada.lastElementChild.style)
         modo = 1
+        /*remove borda do disco*/
+        if(count > 0){
+            posicaoColocada.lastElementChild.classList.remove('discBorder')
+        }
         verificarModo()
     } else {
 
         if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
             console.log(alertaMensagem)
-            alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
+            alertaMensagem.innerText = 'Não é possível fazer essa jogada'
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+                posicaoEscolhida.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
         } else {
 
@@ -169,6 +190,10 @@ function aplicaJogadaStart(event) {
             varetaStart.appendChild(discoSelecionado)
             console.log(posicaoColocada.lastElementChild.style)
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+                posicaoColocada.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
         }
 
@@ -179,6 +204,9 @@ function aplicaJogadaStart(event) {
 function aplicaJogadaOffset(event) {
     posicaoColocada = event.currentTarget
     console.log(posicaoColocada)
+    /*animação parada*/
+    posicaoEscolhida.lastElementChild.classList.remove('subindo')
+    posicaoEscolhida.lastElementChild.classList.add('aparecendo')
 
     if (posicaoColocada.childElementCount === 0) {
         discoSelecionado = posicaoEscolhida.lastElementChild
@@ -186,6 +214,10 @@ function aplicaJogadaOffset(event) {
         varetaOffset.appendChild(discoSelecionado)
         console.log(posicaoColocada.lastElementChild.style)
         modo = 1
+        /*remove borda do disco*/
+        if(count > 0){
+            posicaoColocada.lastElementChild.classList.remove('discBorder')
+        }
         verificarModo()
 
     } else {
@@ -195,6 +227,10 @@ function aplicaJogadaOffset(event) {
             alertaMensagem.innerText = 'Não é possível fazer essa jogada'
                 //mudar o modo
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+               posicaoEscolhida.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
 
         } else {
@@ -204,6 +240,10 @@ function aplicaJogadaOffset(event) {
             varetaOffset.appendChild(discoSelecionado)
             console.log(posicaoColocada.lastElementChild.style)
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+                posicaoColocada.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
 
         }
@@ -216,21 +256,33 @@ function aplicaJogadaEnd(event) {
     posicaoColocada = event.currentTarget
     console.log(posicaoColocada)
 
+    /*animação parada*/
+    posicaoEscolhida.lastElementChild.classList.remove('subindo')
+    posicaoEscolhida.lastElementChild.classList.add('aparecendo')
+
     if (posicaoColocada.childElementCount === 0) {
         discoSelecionado = posicaoEscolhida.lastElementChild
         posicaoEscolhida.removeChild(posicaoEscolhida.lastChild)
         varetaEnd.appendChild(discoSelecionado)
         console.log(posicaoColocada.lastElementChild.style)
         modo = 1
+        /*remove borda do disco*/
+        if(count > 0){
+            posicaoColocada.lastElementChild.classList.remove('discBorder')
+        }
         verificarModo()
 
     } else {
 
         if (posicaoColocada.lastElementChild.style.width < posicaoEscolhida.lastElementChild.style.width) {
             console.log(alertaMensagem)
-            alertaMensagem.innerText = 'Nao e possivel fazer essa jogada'
+            alertaMensagem.innerText = 'Não é possível fazer essa jogada'
                 //mudar o modo
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+                posicaoEscolhida.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
 
         } else {
@@ -240,6 +292,10 @@ function aplicaJogadaEnd(event) {
             varetaEnd.appendChild(discoSelecionado)
             console.log(posicaoColocada.lastElementChild.style)
             modo = 1
+            /*remove borda do disco*/
+            if(count > 0){
+                posicaoColocada.lastElementChild.classList.remove('discBorder')
+            }
             verificarModo()
 
         }
@@ -281,8 +337,6 @@ function victory() {
 function verificarVitoria() {
     if (varetaEnd.childElementCount === 4) {
         alertaMensagem.innerText = 'Game Over'
-        const button = document.createElement('button')
-        button.classList.add('btnstyle')
         rodape.appendChild(button)
         button.innerText = 'Play again!'
         button.addEventListener('click', resetGame)
@@ -296,6 +350,6 @@ function resetGame() {
     varetaStart.appendChild(discoRoxo)
     varetaStart.appendChild(discoAzul)
     alertaMensagem.innerText = ''
-    rodape.removeChild(rodape.lastChild)
+    rodape.innerHTML = ''
 
 }
