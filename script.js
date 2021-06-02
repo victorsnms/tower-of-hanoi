@@ -69,6 +69,10 @@ const button = document.createElement('button')
 button.classList.add('btnstyle')
 discoAzul.classList.add('disco')
 discoAzul.classList.add('azul')
+discoAzul.classList.add('aparecendo')
+discoRoxo.classList.add('aparecendo')
+discoVerde.classList.add('aparecendo')
+discoVermelho.classList.add('aparecendo')
 discoAzul.style.width = '30%'
 discoRoxo.style.width = '50%'
 discoVerde.style.width = '70%'
@@ -114,7 +118,6 @@ verificarModo()
 function pegarPosicaoEscolhidaStart(event) {
     posicaoEscolhida = event.currentTarget
     console.log(posicaoEscolhida)
-    posicaoEscolhida.class
     modo = 2
     /*animação adicionada*/
     posicaoEscolhida.lastElementChild.classList.remove('aparecendo')
